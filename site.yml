@@ -1,0 +1,43 @@
+---
+- name: サーバ構築
+  hosts: all
+  gather_facts: false
+  vars:
+    proxy_env:
+      http_proxy: http://10.144.88.229:8080
+      https_proxy: http://10.144.88.229:8080
+  tasks:
+    - name: 浜松環境の構築
+      import_role:
+        name: hamamatsu-vm
+      when: region_path == 'Hamamatsu'
+
+    - name: AWS環境の構築
+      import_role:
+        name: aws-vm
+      when: region_path == 'AWS'
+
+    - name: WindowsサーバのOSセッティング
+      import_role:
+        name: windows-os
+      when: server_os_family == 'Windows'
+
+    - name: LinuxサーバのOSセッティング
+      import_role:
+        name: linux-os
+      when: server_os_family == 'Linux'
+
+- name: DeepSecurityエージェントのインストール
+  hosts: all
+  tasks:
+    - name: deep-security-agentのインストール/設定を実行
+      tags:
+        - install-deep-security
+      environment:
+        LANG: C
+      import_role:
+        name: deep-security.deep-security-agent
+      vars:
+        operation: deploy
+      when: deep_install == 'true'
+

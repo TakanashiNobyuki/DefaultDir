@@ -1,0 +1,9 @@
+---
+
+group_id: 4
+relay_group_id: 3
+dsm_agent_download_hostname: "10.145.156.170"
+dsm_agent_activation_hostname: "10.145.156.170"
+host_dns1: 10.145.156.174
+host_dns2: 10.145.156.175
+region_path: Yokohama

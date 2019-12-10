@@ -1,0 +1,8 @@
+---
+group_id: 2
+relay_group_id: 1
+dsm_agent_download_hostname: "133.215.213.67"
+dsm_agent_activation_hostname: "133.215.213.67"
+host_dns1: 133.215.64.81
+host_dns2: 133.215.64.82
+region_path: Hamamatsu
