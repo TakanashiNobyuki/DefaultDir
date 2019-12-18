@@ -38,6 +38,7 @@ mkdir playbook-inventory_[作業者名]
 touch playbook-inventory_[作業者名]/[host名]
 ```
 ■　ツールを活用し、インベントリーデータの作成を行う。
+
 | ツール名 | リンク |
 | ------ | ------|
 | Make_Inventory_Windows | \\vpsh001\ITサービス事業部\01_サーバ管理\12_サーバ新規構築手順\【Windows】OS構築手順\インベントリー作成\Make_Inventory_Windows.xlsx |
