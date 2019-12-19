@@ -1,4 +1,7 @@
 ---
+- name: Ansibleからの接続性を検証
+  import_playbook: TEST_connection.yml
+
 - name: サーバ構築
   hosts: all
   gather_facts: false
