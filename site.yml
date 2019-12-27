@@ -10,25 +10,25 @@
       http_proxy: http://10.144.88.229:8080
       https_proxy: http://10.144.88.229:8080
   tasks:
-    - name: 浜松環境の構築
-      import_role:
-        name: hamamatsu-vm
-      when: region_path == 'Hamamatsu'
+#    - name: 浜松環境の構築
+#      import_role:
+#        name: hamamatsu-vm
+#      when: region_path == 'Hamamatsu'
 
-    - name: AWS環境の構築
-      import_role:
-        name: aws-vm
-      when: region_path == 'AWS'
+#    - name: AWS環境の構築
+#      import_role:
+#        name: aws-vm
+#      when: region_path == 'AWS'
 
     - name: WindowsサーバのOSセッティング
       import_role:
         name: windows-setting
       when: server_os_family == 'Windows'
 
-    - name: LinuxサーバのOSセッティング
-      import_role:
-        name: linux-setting
-      when: server_os_family == 'Linux'
+#    - name: LinuxサーバのOSセッティング
+#      import_role:
+#        name: linux-setting
+#      when: server_os_family == 'Linux'
 
 - name: DeepSecurityエージェントのインストール
   hosts: all
