@@ -6,4 +6,7 @@ clone時には下記で実施する
 
 ~~~git
   git clone [対象プロジェクトのURL] [変更したいディレクトリ名]
+例)
+  git clone http://10.147.6.32:10080/dr7/c31/sawa/defaultdir.git Defaultdir
+
 ~~~
