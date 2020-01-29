@@ -7,3 +7,8 @@ dsm_agent_activation_hostname: "10.145.156.170"
 host_dns1: 10.145.156.174
 host_dns2: 10.145.156.175
 region_path: Yokohama
+
+vcenter_host: 10.145.158.4
+vcenter_user: ymsladmin@vsphere.local
+vcenter_pass: VxR@il1!
+datacenter: VxRail-Datacenter
