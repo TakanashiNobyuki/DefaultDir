@@ -26,10 +26,15 @@
         name: windows-setting
       when: server_os_family == 'Windows'
 
-#    - name: LinuxサーバのOSセッティング
-#      import_role:
-#        name: linux-setting
-#      when: server_os_family == 'Linux'
+    - name: LinuxサーバのOSセッティング
+      import_role:
+        name: linux-setting
+      when: server_os_family == 'Linux'
+
+    - name: Zabbix-agentインストール
+      import_role:
+        name: zabbix_agent_install
+      when: server_os_family == 'Linux'
 
 - name: DeepSecurityエージェントのインストール
   hosts: all

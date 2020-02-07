@@ -12,3 +12,10 @@ vcenter_host: 10.145.158.4
 vcenter_user: ymsladmin@vsphere.local
 vcenter_pass: VxR@il1!
 datacenter: VxRail-Datacenter
+
+timezone: Asia/Tokyo
+zabbix:
+  ip: 10.145.150.25
+  hostname: pvcy021 
+  major_ver: 2.2 
+  minor_ver: 14
