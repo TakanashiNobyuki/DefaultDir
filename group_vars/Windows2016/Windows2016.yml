@@ -6,3 +6,9 @@ ansible_connection: winrm
 ansible_winrm_server_cert_validation: ignore
 policy_name: YMC-BaseWin-Policy
 server_os_family: Windows
+
+os_template: Win2016-Mem4-Disk80
+root_disk_size: 80
+network_device_type: e1000e
+
+aws_ec2_ami_id: ami-06509f25092b618c3
