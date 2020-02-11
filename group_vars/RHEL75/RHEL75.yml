@@ -1,2 +1,8 @@
 ---
 server_os_family: Linux
+
+os_template: RHEL7.5-Disk30-Swap8
+root_disk_size: 30
+network_device_type: vmxnet3
+
+aws_ec2_ami_id: ami-08b9b6bb043a37dee
