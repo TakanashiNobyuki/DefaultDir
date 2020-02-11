@@ -1,0 +1,8 @@
+---
+ansible_user: AnsibleUser
+ansible_password: PVCH116admin
+ansible_port: 5986
+ansible_connection: winrm
+ansible_winrm_server_cert_validation: ignore
+policy_name: YMC-BaseWin-Policy
+server_os_family: Windows
