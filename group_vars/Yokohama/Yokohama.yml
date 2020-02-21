@@ -13,9 +13,19 @@ vcenter_user: ymsladmin@vsphere.local
 vcenter_pass: VxR@il1!
 datacenter: VxRail-Datacenter
 
-timezone: Asia/Tokyo
+# Zabbix Server
 zabbix:
   ip: 10.145.150.25
   hostname: pvcy021 
   major_ver: 2.2 
   minor_ver: 14
+
+# SMTP Server
+mail_server: 10.145.152.7
+mail_domain: yamaha-motor.co.jp
+
+# NTP Server
+ntp_server:
+  - 10.145.150.20
+  - 10.145.157.20
+ 

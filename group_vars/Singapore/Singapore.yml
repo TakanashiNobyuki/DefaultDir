@@ -4,9 +4,16 @@ host_dns1: 172.25.1.5
 host_dns2: 172.25.1.4
 region_path: SDC
 
-timezone: Asia/Singapore
+# Zabbix Server
 zabbix:
   ip: 10.145.24.38
   hostname: pvc056
   major_ver: 2.2 
   minor_ver: 14
+
+# SMTP Server
+mail_server: 116.51.20.5
+mail_domain: yamaha-motor.co.jp
+
+# NTP Server
+ntp_server: 116.51.20.5

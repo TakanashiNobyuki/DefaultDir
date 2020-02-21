@@ -8,9 +8,16 @@ host_dns1: 10.147.4.14
 host_dns2: 10.147.6.14
 region_path: AWS
 
-timezone: Asia/Tokyo
+# Zabbix Server
 zabbix:
   ip: 10.147.4.13
   hostname: pvct034 
   major_ver: 3.0
   minor_ver: 14 
+
+# SMTP Server
+mail_server: 10.147.0.12
+mail_domain: yamaha-motor.co.jp
+
+# NTP Server
+ntp_server: 169.254.169.123
