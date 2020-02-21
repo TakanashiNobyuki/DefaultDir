@@ -1,0 +1,60 @@
+---
+- name: Ansibleでsetup可能か確認
+  setup:
+  ignore_errors: true
+  register: check_setup
+
+- when: check_setup is failed
+  vars:
+    ansible_python_interpreter: /usr/bin/python26
+  become: true
+  block:
+    - name: /usr/bin/python26 でセットアップ可能か確認
+      setup:
+      ignore_errors: true
+      register: check_setup_with_26
+
+    - when: check_setup_with_26 is failed
+      block:
+        - name: redhat-releaseからバージョンを確認
+          raw: cat /etc/redhat-release
+          changed_when: false
+          register: cat_redhat_release
+
+        - name: RHEL5系であることを確認
+          assert:
+            that: '" 5." in cat_redhat_release.stdout'
+
+        - name: EPELをインストール
+          raw: 'curl -O https://archive.fedoraproject.org/pub/archive/epel/epel-release-latest-5.noarch.rpm &&
+            curl -O https://archive.fedoraproject.org/pub/archive/epel/RPM-GPG-KEY-EPEL-5 &&
+            rpm --import RPM-GPG-KEY-EPEL-5 &&
+            yum localinstall -y epel-release-latest-5.noarch.rpm &&
+            rm epel-release-latest-5.noarch.rpm RPM-GPG-KEY-EPEL-5'
+                                
+        - name: python26をインストール
+          raw: yum install -y python26
+
+        - name: Ansibleでsetup可能になっていることを確認
+          setup:
+
+    - name: ansible_python_interpreter変数に/usr/bin/python26を設定
+      set_fact:
+        ansible_python_interpreter: /usr/bin/python26
+
+- when: 'ansible_system == "Linux"'
+  block:
+    - name: SELinuxの状態を確認
+      command: /usr/sbin/getenforce
+      changed_when: false
+      become: true
+      register: getenforce_result
+
+    - debug:
+        msg:
+          - 'SELinux status: {{ getenforce_result.stdout }}'
+          - 'libselinux-python installed: {{ ansible_selinux_python_present|default(False) }}'
+
+    - name: SELinuxが無効またはAnsibleから操作可能でない場合はPlaybookを失敗させる
+      assert:
+        that: 'ansible_selinux_python_present|default(False) or getenforce_result.stdout|trim|lower == "disabled"'
