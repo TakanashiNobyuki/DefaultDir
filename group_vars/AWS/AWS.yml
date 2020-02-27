@@ -12,8 +12,8 @@ region_path: AWS
 zabbix:
   ip: 10.147.4.13
   hostname: pvct034 
-  major_ver: 3.0
-  minor_ver: 14 
+  major: 3.0
+  minor: 14 
 
 # SMTP Server
 mail_server: 10.147.0.12
