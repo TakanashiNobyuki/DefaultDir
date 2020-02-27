@@ -42,7 +42,7 @@
       set_fact:
         ansible_python_interpreter: /usr/bin/python26
 
-- when: 'ansible_system == "Linux"'
+- when: server_os_family == "Linux"
   block:
     - name: SELinuxの状態を確認
       command: /usr/sbin/getenforce

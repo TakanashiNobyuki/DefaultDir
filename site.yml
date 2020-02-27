@@ -2,6 +2,7 @@
 - name: サーバ構築
   hosts: all
   gather_facts: false
+  become: true
   vars:
     proxy_env:
       http_proxy: http://10.144.88.229:8080
@@ -28,15 +29,15 @@
 
     - name: LinuxサーバのOSセッティング
       import_role:
-        name: linux-setting
+        name: linux_setting
       when: server_os_family == 'Linux'
 
-    - name: Zabbix-agentインストール
-      import_role:
-        name: zabbix_agent_install
-      when:
-        - test_request is not defined
-        - server_os_family == 'Linux'
+#    - name: Zabbix-agentインストール
+#      import_role:
+#        name: zabbix_agent_install
+#      when:
+#        - test_request is not define
+#        - server_os_family == 'Linux'
 
 - name: DeepSecurityエージェントのインストール
   hosts: all

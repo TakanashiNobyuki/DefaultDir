@@ -1,7 +1,7 @@
 ---
 server_os_family: Linux
 
-os_template: RHEL7.5-Disk30-Swap8
+os_template: RHEL75-Disk30
 root_disk_size: 30
 network_device_type: vmxnet3
 

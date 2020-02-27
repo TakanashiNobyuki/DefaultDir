@@ -11,8 +11,8 @@ region_path: Hamamatsu
 zabbix:
   ip: 133.215.49.45
   hostname: pvs613
-  major_ver: 2.2 
-  minor_ver: 14
+  major: 2.2 
+  minor: 14
 
 # SMTP Server
 mail_server: 10.145.152.7
