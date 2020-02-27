@@ -4,8 +4,8 @@
 zabbix:
   ip: 10.145.24.38
   hostname: pvc056
-  major_ver: 2.2 
-  minor_ver: 14
+  major: 2.2 
+  minor: 14
 
 # SMTP Server
 mail_server: 116.51.20.5

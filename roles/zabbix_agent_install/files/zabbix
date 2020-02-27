@@ -1,4 +1,0 @@
-Cmnd_Alias ZABBIX_USERSCRIPTS = /etc/zabbix/userscripts/*, /etc/zabbix/userscripts/*/*
-Cmnd_Alias ZABBIX_ALLOWED = /bin/systemctl, /sbin/service, /usr/bin/nmap
-Defaults:zabbix !requiretty
-zabbix  ALL=(ALL)       NOPASSWD: ZABBIX_USERSCRIPTS, ZABBIX_ALLOWED
