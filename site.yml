@@ -2,6 +2,7 @@
 - name: サーバ構築
   hosts: all
   gather_facts: false
+  become: true
   vars:
     proxy_env:
       http_proxy: http://10.144.88.229:8080
@@ -13,40 +14,48 @@
         name: vmware_vm_build
       when: region_path == 'Yokohama'
 
-    - name: AWS EC2 create
-      import_role:
-        name: aws_instance_launch
-      when: region_path == 'AWS'
-    
-    - name: Ansibleからの接続性を検証
-      import_tasks: import_tasks/TEST_connection.yml
-
-    - name: WindowsサーバのOSセッティング
-      import_role:
-        name: windows-setting
-      when: server_os_family == 'Windows'
-
+#    - name: AWS EC2 create
+#      import_role:
+#        name: aws_instance_launch
+#      when: region_path == 'AWS'
+#    
+#    - name: Ansibleからの接続性を検証
+#      import_tasks: import_tasks/TEST_connection.yml
+#
+#    - name: WindowsサーバのOSセッティング
+#      import_role:
+#        name: windows-setting
+#      when: server_os_family == 'Windows'
+#
     - name: LinuxサーバのOSセッティング
       import_role:
-        name: linux-setting
+        name: linux_setting
       when: server_os_family == 'Linux'
 
-    - name: Zabbix-agentインストール
-      import_role:
-        name: zabbix_agent_install
-      when: server_os_family == 'Linux'
-
-- name: DeepSecurityエージェントのインストール
+#    - name: Zabbix-agentインストール
+#      import_role:
+#        name: zabbix_agent_install
+#      when: server_os_family == 'Linux'
+#
+#- name: DeepSecurityエージェントのインストール
+#  hosts: all
+#  tasks:
+#    - name: deep-security-agentのインストール/設定を実行
+#      tags:
+#        - install-deep-security
+#      environment:
+#        LANG: C
+#      import_role:
+#        name: deep-security.deep-security-agent
+#      vars:
+#        operation: deploy
+#      when: deep_install == 'true'
+#
+- name: process after job
   hosts: all
+  gather_facts: false
   tasks:
-    - name: deep-security-agentのインストール/設定を実行
-      tags:
-        - install-deep-security
-      environment:
-        LANG: C
-      import_role:
-        name: deep-security.deep-security-agent
-      vars:
-        operation: deploy
-      when: deep_install == 'true'
+    - name: logrotate
+      shell: bash files/logrotate.sh
+      delegate_to: localhost
 

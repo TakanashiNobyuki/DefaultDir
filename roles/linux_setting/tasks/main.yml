@@ -1,0 +1,103 @@
+---
+# Check before setup  
+- name: Check before setup linux Server
+  import_tasks: linux_server_exists_check.yml
+
+
+# Start linux-server setup tasks
+- name: Modify hostname
+  hostname: 
+    name: "{{ host_name }}"
+
+- name: Modify root password
+  user:
+    name: "root"
+    password: "{{ host_password | password_hash('sha512') }}"
+
+- name: Format /etc/hosts
+  copy:
+    src: files/hosts
+    dest: /etc/hosts
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Add SMTP and myself to /etc/hosts
+  lineinfile:
+    dest: "/etc/hosts"
+    line: "{{ item }}"
+  with_items:
+    - "# SMTP"
+    - "{{ mail_server }} {{ mail_domain }}"
+    - "{{ mail_server }} po mailhost po.{{ mail_domain }}"
+    - " "
+    - "{{ host_ip }} {{ host_name }} {{ host_name }}.{{ mail_domain }} "
+
+- name: Create application user directory
+  file: 
+    path: /home/app
+    state: directory    
+
+- name: Set locale
+  command: localectl set-locale LANG=en_US.UTF-8
+
+- name: Set timezone 
+  timezone:
+    name: "{{ timezone_name }}"
+  register: timezone
+
+- name: Format NTP setting
+  copy:
+    src: files/chrony.conf
+    dest: /etc/chrony.conf
+    owner: root
+    group: root
+    mode: "0644" 
+    backup: yes
+
+- name: Setup NTP without Yokohama
+  lineinfile:
+    dest: "/etc/chrony.conf"
+    line: "server {{ ntp_server }} iburst"
+  when: region_path != "Yokohama"
+
+- name: Setup NTP for Yokohama
+  lineinfile: 
+    dest: "/etc/chrony.conf"
+    line: "{{ item }}"  
+  with_items: 
+      - "server {{ ntp_server1 }} iburst"
+      - "server {{ ntp_server2 }} iburst"
+  when: region_path == "Yokohama"
+
+- name: Restart chronyd
+  systemd:
+    name: chronyd
+    state: restarted
+
+- name: Mount disk
+  include_tasks: mount_disk.yml
+  with_indexed_items: "{{ disk_params }}"
+  loop_control:
+    loop_var: disk_param
+  when: disk_params is defined
+
+- name: Reboot test
+  reboot:
+    msg: "Reboot testing now. Please wait until started the Server."
+
+
+# Checking after reboot
+- name: Check chronyd status
+  systemd:
+    name: chronyd
+    state: started 
+
+- name: Exec cofirmation shellscript
+  script: os_setting_confirmation.sh
+
+- name: Delete checking file(ExsistanceChecking)
+  file:
+    path: /YMSL_WORK/ExistenceChecking
+    state: absent
+

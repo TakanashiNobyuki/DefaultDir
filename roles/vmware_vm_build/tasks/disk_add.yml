@@ -1,0 +1,26 @@
+---
+- debug: var=disk_param
+
+- name: set unit number
+  set_fact: unit_number={{ disk_param.0 | int + 1 }}
+
+- debug: var=unit_number
+
+- name: Add disk to virtual machine
+  vmware_guest_disk:
+    hostname: "{{ vcenter_host }}"
+    username: "{{ vcenter_user }}"
+    password: "{{ vcenter_pass }}"
+    validate_certs: no
+    datacenter: "{{ datacenter }}"
+    name: "{{ host_name }}"
+    disk:
+      - size_gb: "{{ disk_param[1].size }}"
+        type: thin
+        datastore: "{{ disk_param[1].datastore }}"
+        state: present
+        scsi_controller: 1
+        unit_number: "{{ unit_number }}"
+  delegate_to: localhost
+  register: disk_fact
+

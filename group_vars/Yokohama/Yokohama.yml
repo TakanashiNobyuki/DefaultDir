@@ -17,15 +17,14 @@ datacenter: VxRail-Datacenter
 zabbix:
   ip: 10.145.150.25
   hostname: pvcy021 
-  major_ver: 2.2 
-  minor_ver: 14
+  major: 2.2 
+  minor: 14
 
 # SMTP Server
 mail_server: 10.145.152.7
 mail_domain: yamaha-motor.co.jp
 
 # NTP Server
-ntp_server:
-  - 10.145.150.20
-  - 10.145.157.20
+ntp_server1: 10.145.150.20
+ntp_server2: 10.145.157.20
  

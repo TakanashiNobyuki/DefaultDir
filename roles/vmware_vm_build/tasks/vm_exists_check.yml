@@ -1,0 +1,37 @@
+---
+- name: retrieve VMs information
+  vmware_vm_info:
+    hostname: "{{ vcenter_host }}"
+    username: "{{ vcenter_user }}"
+    password: "{{ vcenter_pass }}"
+    validate_certs: no
+    vm_type: vm
+  delegate_to: localhost
+  register: vminfo
+
+- set_fact:
+    is_hostname: false
+
+- name: retrieve ip
+  shell: ping "{{ host_ip }}" -c 10
+  ignore_errors: true
+  register: ping_result
+  delegate_to: localhost
+
+- name: IP address exist check
+  fail: msg="IP address:{{ host_ip }} is exit!!"
+  when: ping_result.rc == 0
+
+- name: retrieve hostname
+  set_fact:
+    is_hostname: true
+  with_items:
+    - "{{ vminfo.virtual_machines | json_query(query) }}"
+  vars:
+    query: "[?guest_name=='{{ host_name }}']"
+
+- name: Hostname exist check
+  fail: msg="Hostname:{{ host_name }} is exist!!"
+  when:
+    - is_hostname == true
+

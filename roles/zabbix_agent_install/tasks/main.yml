@@ -1,0 +1,69 @@
+---
+- name: Make directory (/var/install/zabbix)
+  become: true
+  file:
+    path: /var/install/zabbix
+    state: directory
+    mode: 0755
+    owner: root
+
+- name: /etc/hosts
+  lineinfile:
+    path: /etc/hosts
+    state: present
+    regexp: 'zabbix'
+    insertafter: EOF
+    line: '{{ zabbix.ip }}   {{ zabbix.hostname  }} zabbix'
+
+- name: Download rpms
+  include_tasks: download_rpms.yml
+
+- name: Install zabbix agent
+  command: rpm -ivh /var/install/zabbix/*.rpm
+
+- name: Copy zabbix_agentd.conf
+  copy:
+    src: files/region/{{ region_path }}/zabbix_agentd.conf
+    dest: /etc/zabbix/zabbix_agentd.conf
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Setup zabbix-agent
+  copy:
+    src: files/userscripts
+    dest: /etc/zabbix/
+
+- name: Copy sudo file
+  copy: 
+    src: files/zabbix
+    dest: /etc/sudoers.d/
+    owner: root
+    group: root
+    mode: "0440"
+
+- name: Change permission /var/log/messages
+  file: 
+    path: /var/log/messages
+    mode: "0644"
+
+- name: Change syslog rotation
+  copy:
+    src: files/syslog
+    dest: /etc/logrotate.d/syslog
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Start zabbix agent
+  systemd:
+    name: zabbix-agent
+    state: restarted
+    enabled: yes 
+
+- name: Confirm zabbix agent status
+  systemd:
+    name: zabbix-agent
+    state: started  
+
+
