@@ -2,7 +2,6 @@
 - name: サーバ構築
   hosts: all
   gather_facts: false
-  become: true
   vars:
     proxy_env:
       http_proxy: http://10.144.88.229:8080
