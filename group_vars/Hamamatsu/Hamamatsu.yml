@@ -7,6 +7,8 @@ host_dns1: 133.215.64.81
 host_dns2: 133.215.64.82
 region_path: Hamamatsu
 
+netwk_dv: Ehernet0
+
 # Zabbix Server
 zabbix:
   ip: 133.215.49.45
