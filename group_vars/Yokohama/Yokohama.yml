@@ -13,6 +13,8 @@ vcenter_user: ymsladmin@vsphere.local
 vcenter_pass: VxR@il1!
 datacenter: VxRail-Datacenter
 
+netwk_dn: Ethernet0
+
 # Zabbix Server
 zabbix:
   ip: 10.145.150.25
