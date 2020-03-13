@@ -4,6 +4,6 @@
   gather_facts: true
   become: true 
   tasks:
-     - name: check vm
+     - name: Check after built server
        import_role:
          name: evidence_check
