@@ -27,11 +27,11 @@
         name: windows_setting
       when: server_os_family == 'Windows'
 
-    - name: LinuxサーバのOSセッティング
-      become: true
-      import_role:
-        name: linux_setting
-      when: server_os_family == 'Linux'
+#    - name: LinuxサーバのOSセッティング
+#      become: true
+#      import_role:
+#        name: linux_setting
+#      when: server_os_family == 'Linux'
 
 #    - name: Zabbix-agentインストール
 #      import_role:
