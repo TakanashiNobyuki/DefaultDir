@@ -1,0 +1,9 @@
+---
+- name: サーバ構築
+  hosts: all
+  gather_facts: true
+  become: true 
+  tasks:
+     - name: check vm
+       import_role:
+         name: evidence_check

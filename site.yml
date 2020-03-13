@@ -2,32 +2,33 @@
 - name: サーバ構築
   hosts: all
   gather_facts: false
-  become: true
   vars:
     proxy_env:
       http_proxy: http://10.144.88.229:8080
       https_proxy: http://10.144.88.229:8080
       NO_PROXY: 169.254.169.254
+
   tasks:
-    - name: Yokohama VM create
-      import_role:
-        name: vmware_vm_build
-      when: region_path == 'Yokohama'
-
-    - name: AWS EC2 create
-      import_role:
-        name: aws_instance_launch
-      when: region_path == 'AWS'
-    
-    - name: Ansibleからの接続性を検証
-      import_tasks: import_tasks/TEST_connection.yml
-
-    - name: WindowsサーバのOSセッティング
-      import_role:
-        name: windows-setting
-      when: server_os_family == 'Windows'
-
+#    - name: Yokohama VM create
+#      import_role:
+#        name: vmware_vm_build
+#      when: region_path == 'Yokohama'
+#
+#    - name: AWS EC2 create
+#      import_role:
+#        name: aws_instance_launch
+#      when: region_path == 'AWS'
+#    
+#    - name: Ansibleからの接続性を検証
+#      import_tasks: import_tasks/TEST_connection.yml
+#
+#    - name: WindowsサーバのOSセッティング
+#      import_role:
+#        name: windows-setting
+#      when: server_os_family == 'Windows'
+#
     - name: LinuxサーバのOSセッティング
+      become: true
       import_role:
         name: linux_setting
       when: server_os_family == 'Linux'
@@ -36,7 +37,7 @@
 #      import_role:
 #        name: zabbix_agent_install
 #      when: server_os_family == 'Linux'
-
+#
 - name: DeepSecurityエージェントのインストール
   hosts: all
   tasks:

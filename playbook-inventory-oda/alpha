@@ -7,6 +7,8 @@ host_ip=10.145.157.170
 host_password=SYSADMIN
 timezone_name=Asia/Tokyo 
 
+deep_install=true
+
 esxi_folder=/Ansible_test
 esxi_host=pdsy01.ymcgroup.co.jp
 
@@ -18,7 +20,7 @@ network_seg=Intra11
 subnetmask=255.255.255.192
 default_gateway=10.145.157.129
 
-#disk_params=[{"size": 5, "datastore": "VxRail-Virtual-SAN-Datastore-a3f5075d-8118-4622-9c4b-d903405f8868", "device": "/dev/sdb", "mountpoint" : "/TEST" , "lv" : "LVtest", "vg" : "VGtest"}, {"size": 100, "datastore": "VxRail-Virtual-SAN-Datastore-a3f5075d-8118-4622-9c4b-d903405f8868", "device": "/dev/sdc", "mountpoint" : "/fjlsadkfjsalfj" , "lv" : "LVyyy", "vg" : "VGxxx"} ]
+disk_params=[{"size": 5, "datastore": "VxRail-Virtual-SAN-Datastore-a3f5075d-8118-4622-9c4b-d903405f8868", "device": "/dev/sdb", "mountpoint" : "/TEST" , "lv" : "LVtest", "vg" : "VGtest"}, {"size": 23, "datastore": "VxRail-Virtual-SAN-Datastore-a3f5075d-8118-4622-9c4b-d903405f8868", "device": "/dev/sdc", "mountpoint" : "/home/app/alpha" , "lv" : "LValpha", "vg" : "VGalpha"} ]
 
 
 [Yokohama]
