@@ -40,19 +40,19 @@
 #        - test_request is not define
 #        - server_os_family == 'Linux'
 
-- name: DeepSecurityエージェントのインストール
-  hosts: all
-  tasks:
-    - name: deep-security-agentのインストール/設定を実行
-      tags:
-        - install-deep-security
-      environment:
-        LANG: C
-      import_role:
-        name: deep-security.deep-security-agent
-      vars:
-        operation: deploy
-      when:
-        - test_request is not defined
-        - deep_install == 'true'
+#- name: DeepSecurityエージェントのインストール
+#  hosts: all
+#  tasks:
+#    - name: deep-security-agentのインストール/設定を実行
+#      tags:
+#        - install-deep-security
+#      environment:
+#        LANG: C
+#      import_role:
+#        name: deep-security.deep-security-agent
+#      vars:
+#        operation: deploy
+#      when:
+#        - test_request is not defined
+#        - deep_install == 'true'
 
